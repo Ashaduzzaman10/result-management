@@ -73,15 +73,46 @@ int main() {
         }
 
 
-        // Input result
-        printf("Result: ");
-        if (scanf("%f", &students[i].result) != 1) {
-            printf("Invalid input for result. Please enter a number.\n"); //error handling
-            return 1;
+  //take student result 
+    while(1)
+            {
+                printf("Enter student  Result: ");
+                char check[4];
+                scanf("%s", &check);
+                int size = strlen(check);
+                int done = 1;
+                int count = 0;
+                for(int j=0; j<size; j++)
+                {
+                    if(check[j]>='0' && check[j]<='9') ;
+                    else if(check[j]=='.') count++;
+                    else
+                    {
+                        done = 0;
+                        break;
+                    }
+                }
+                if(done==1 && count==1)
+                {
+                    int result = 0;
+                    for(int j=0; j<size; j++)
+                    {
+                        int a = check[j]-'0';
+                        if(check[j]=='.') continue;
+                        if(j==0) result = a;
+                        else
+                        {
+                            result *= 10;
+                            result += a;
+                        }
+                    }
+                    double res = result/100.0;
+                    students[i].result = res;
+                    break;
+                }
+                else printf("Result is not valid\n");
+            }
         }
-    }
-
-
     // creating file for those student based on th condition
     FILE *bonusFile = fopen("bonus_students.txt", "w"); // toper are store in bonus file
     FILE *normalFile = fopen("normal_students.txt", "w"); // normal  are store in normal file
