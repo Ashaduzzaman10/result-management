@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
     char name[20];
@@ -9,6 +10,7 @@ typedef struct {
 
 int main() {
     int numberOfStudent;
+    int n;
 
     // here input the  number of students
     printf("how much student in the class : ");
@@ -26,7 +28,7 @@ int main() {
     for (int i = 0; i < numberOfStudent; i++) {
         printf("provide some information for student %d:\n", i + 1);
 
-        // Input name and checking input validation 
+        // Input name and checking input validation
         akash:
         printf("Name: ");
         scanf("%s", students[i].name);
@@ -73,11 +75,11 @@ int main() {
         }
 
 
-  //take student result 
+  //take student result
     while(1)
             {
                 printf("Enter student  Result: ");
-                char check[4];
+                char check[3];
                 scanf("%s", &check);
                 int size = strlen(check);
                 int done = 1;
@@ -113,6 +115,27 @@ int main() {
                 else printf("Result is not valid\n");
             }
         }
+        // Sorting students based on GPA in descending order
+    for (int i = 0; i < n - 1; i++)
+    {
+      for (int j = i + 1; j < n; j++)
+      {
+        if (students[i].result < students[j].result)
+        {
+          // Swap the students
+          Student temp = students[i];
+          students[i] = students[j];
+          students[j] = temp;
+        }
+      }
+    }
+
+    printf("\nName\tRoll\tresult\n");
+    for (int i = 0; i < numberOfStudent; i++)
+    {
+      printf("%s\t%d\t%.2f\n", students[i].name, students[i].roll, students[i].result);
+    }
+    printf("\n");
     // creating file for those student based on th condition
     FILE *bonusFile = fopen("bonus_students.txt", "w"); // toper are store in bonus file
     FILE *normalFile = fopen("normal_students.txt", "w"); // normal  are store in normal file
@@ -131,7 +154,6 @@ int main() {
             fprintf(normalFile, "Name: %s, Roll: %d, Result: %.2f\n", students[i].name, students[i].roll, students[i].result);
         }
     }
-
     // Close files
     fclose(bonusFile);
     fclose(normalFile);
@@ -140,7 +162,7 @@ int main() {
     free(students);
 
     printf("Student information categorized successfully based on their result .\n");
-    
+
 
     return 0;
 }
